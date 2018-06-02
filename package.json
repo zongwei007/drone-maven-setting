@@ -1,0 +1,25 @@
+{
+  "name": "drone-maven-setting",
+  "version": "1.0.0",
+  "description": "drone maven setting plugin",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write *.js",
+    "precommit": "pretty-quick --staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zongwei007/drone-maven-setting.git"
+  },
+  "author": "Li Zongwei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zongwei007/drone-maven-setting/issues"
+  },
+  "homepage": "https://github.com/zongwei007/drone-maven-setting#readme",
+  "devDependencies": {
+    "mock-require": "^3.0.2",
+    "prettier": "^1.13.4",
+    "pretty-quick": "^1.6.0"
+  }
+}
