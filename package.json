@@ -4,7 +4,8 @@
   "description": "drone maven setting plugin",
   "main": "index.js",
   "scripts": {
-    "prettier": "prettier --write *.js",
+    "test": "tape test/*.js",
+    "prettier": "prettier --write **/*.js",
     "precommit": "pretty-quick --staged"
   },
   "repository": {
@@ -20,6 +21,7 @@
   "devDependencies": {
     "mock-require": "^3.0.2",
     "prettier": "^1.13.4",
-    "pretty-quick": "^1.6.0"
+    "pretty-quick": "^1.6.0",
+    "tape": "^4.9.0"
   }
 }
