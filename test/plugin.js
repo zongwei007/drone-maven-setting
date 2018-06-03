@@ -40,7 +40,7 @@ test('generate setting', function(t) {
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
   >
-    <localRepository>/root/.m2</localRepository>
+    <localRepository>/root/repo</localRepository>
     <mirrors>
       <mirror>
         <id>private</id>

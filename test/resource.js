@@ -1,5 +1,5 @@
 const TEST_CONFIG = {
-  local: '/root/.m2',
+  local: '/root/repo',
   mirrors: [
     {
       id: 'private',

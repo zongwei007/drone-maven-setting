@@ -17,7 +17,7 @@ function readConfig(env) {
       return memo;
     },
     {
-      local: env['PLUGIN_LOCAL_REPOSITORY'] || `${env.PWD}/.m2`,
+      local: env['PLUGIN_LOCAL_REPOSITORY'] || `${env.PWD}/repo`,
     }
   );
 }
