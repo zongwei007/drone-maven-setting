@@ -1,9 +1,24 @@
+sudo: required
+
+services:
+  - docker
+
+cache:
+  directories:
+    - node_modules
+
 language: node_js
 
 node_js: 8
 
-before_script:
-  - npm install
-
 script:
   - npm test
+
+deploy:
+  provider: script
+  script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build . -t knives/drone-maven-setting
+    - docker push knives/drone-maven-setting
+  on:
+    branch: master
