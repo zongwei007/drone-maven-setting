@@ -1,4 +1,4 @@
-const TEST_CONFIG = {
+const TEST_CONFIG_FULL = {
   local: '/root/repo',
   mirrors: [
     {
@@ -26,6 +26,15 @@ const TEST_CONFIG = {
   active_profiles: ['profile_id'],
 };
 
+const TEST_CONFIG_EMPTY = {
+  local: '/root/repo',
+  mirrors: [],
+  servers: [],
+  profiles: [],
+  active_profiles: [],
+};
+
 module.exports = {
-  TEST_CONFIG,
+  TEST_CONFIG_FULL,
+  TEST_CONFIG_EMPTY,
 };

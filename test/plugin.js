@@ -2,7 +2,7 @@ const test = require('tape');
 
 const { generateElement, generateSetting } = require('../src/plugin');
 const { xml } = require('../src/util');
-const { TEST_CONFIG } = require('./resource');
+const { TEST_CONFIG_FULL } = require('./config-example');
 
 test('generate element', function(t) {
   const obj = {
@@ -35,7 +35,7 @@ test('generate elements with object or array', function(t) {
 
 test('generate setting', function(t) {
   t.equal(
-    generateSetting(TEST_CONFIG),
+    generateSetting(TEST_CONFIG_FULL),
     xml`<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
