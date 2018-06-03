@@ -18,7 +18,7 @@ function readConfig(env) {
     },
     {
       local: env['PLUGIN_LOCAL_REPOSITORY'] || `${env.PWD}/repo`,
-      active_profiles: env['PLUGIN_ACTIVE_PROFILES'].split(','),
+      active_profiles: (env['PLUGIN_ACTIVE_PROFILES'] || '').split(','),
     }
   );
 }
