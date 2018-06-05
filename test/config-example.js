@@ -1,5 +1,5 @@
 const TEST_CONFIG_FULL = {
-  local: '/root/repo',
+  local_repository: '/root/repo',
   mirrors: [
     {
       id: 'private',
@@ -27,11 +27,7 @@ const TEST_CONFIG_FULL = {
 };
 
 const TEST_CONFIG_EMPTY = {
-  local: '/root/repo',
-  mirrors: [],
-  servers: [],
-  profiles: [],
-  active_profiles: [],
+  local_repository: '/root/repo',
 };
 
 module.exports = {

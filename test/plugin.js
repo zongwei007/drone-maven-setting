@@ -22,13 +22,25 @@ test('generate element', function(t) {
 test('generate elements with object or array', function(t) {
   const obj = {
     id: 'name',
-    array: [1, 2, 3],
-    foo: {
+    properties: {
       bar: 1,
     },
+    repositories: [{ id: 1 }, { id: 2 }, { id: 3 }],
+    plugin_repositories: []
   };
 
-  t.equal(generateElement('ele')(obj), '<ele><id>name</id><foo><bar>1</bar></foo></ele>');
+  t.equal(
+    generateElement('profile')(obj),
+    [
+      '<profile><id>name</id>',
+      '<properties><bar>1</bar></properties>',
+      '<repositories><repository><id>1</id></repository>',
+      '<repository><id>2</id></repository>',
+      '<repository><id>3</id></repository></repositories>',
+      '<pluginRepositories></pluginRepositories>',
+      '</profile>',
+    ].join('')
+  );
 
   t.end();
 });
@@ -36,40 +48,36 @@ test('generate elements with object or array', function(t) {
 test('generate setting', function(t) {
   t.equal(
     generateSetting(TEST_CONFIG_FULL),
-    xml`<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
-  >
-    <localRepository>/root/repo</localRepository>
-    <mirrors>
-      <mirror>
-        <id>private</id>
-        <name>mirror</name>
-        <mirrorOf>central</mirrorOf>
-        <url>url</url>
-      </mirror>
-    </mirrors>
-    <servers>
-      <server>
-        <id>server_id</id>
-        <username>server_user</username>
-        <password>server_pwd</password>
-      </server>
-    </servers>
-    <profiles>
-      <profile>
-        <id>profile_id</id>
-        <properties>
-          <foo>bar</foo>
-        </properties>
-        <repositories></repositories>
-        <pluginRepositories></pluginRepositories>
-      </profile>
-    </profiles>
-    <activeProfiles>
-      <activeProfile>profile_id</activeProfile>
-    </activeProfiles>
-  </settings>`
+    xml`
+      <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+        <localRepository>/root/repo</localRepository>
+        <mirrors>
+          <mirror>
+            <id>private</id>
+            <name>mirror</name>
+            <mirrorOf>central</mirrorOf>
+            <url>url</url>
+          </mirror>
+        </mirrors>
+        <servers>
+          <server>
+            <id>server_id</id>
+            <username>server_user</username>
+            <password>server_pwd</password>
+          </server>
+        </servers>
+        <profiles>
+          <profile>
+            <id>profile_id</id>
+            <properties>
+              <foo>bar</foo>
+            </properties>
+          </profile>
+        </profiles>
+        <activeProfiles>
+          <activeProfile>profile_id</activeProfile>
+        </activeProfiles>
+      </settings>`
   );
 
   t.end();

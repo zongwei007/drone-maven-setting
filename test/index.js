@@ -4,10 +4,12 @@ const mock = require('mock-require');
 const { TEST_CONFIG_FULL, TEST_CONFIG_EMPTY } = require('./config-example');
 const TEST_ENV_FULL = {
   PWD: '/root',
-  PLUGIN_MIRRORS: '[{"id":"private","name":"mirror","mirror_of":"central","url":"url"}]',
-  PLUGIN_SERVERS: '[{"id":"server_id","username":"server_user","password":"server_pwd"}]',
-  PLUGIN_PROFILES: '[{"id":"profile_id","properties":{"foo":"bar"}}]',
-  PLUGIN_ACTIVE_PROFILES: 'profile_id',
+  PLUGIN_SETTINGS: `{
+    "mirrors": [{"id":"private","name":"mirror","mirror_of":"central","url":"url"}],
+    "servers": [{"id":"server_id","username":"server_user","password":"server_pwd"}],
+    "profiles": [{"id":"profile_id","properties":{"foo":"bar"}}],
+    "active_profiles": ["profile_id"]
+  }`,
 };
 const TEST_ENV_EMPTY = {
   PWD: '/root',

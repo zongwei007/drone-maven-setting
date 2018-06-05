@@ -4,22 +4,11 @@ const fs = require('fs');
 const { generateSetting } = require('./plugin');
 
 function readConfig(env) {
-  return ['servers', 'mirrors', 'profiles'].reduce(
-    (memo, key) => {
-      try {
-        memo[key] = JSON.parse(env[`PLUGIN_${key.toUpperCase()}`] || '[]');
-      } catch (e) {
-        console.error(`parse ${key} fail.`, e);
-
-        process.exit(1);
-      }
-
-      return memo;
-    },
+  return Object.assign(
     {
-      local: env['PLUGIN_LOCAL_REPOSITORY'] || `${env.PWD}/repo`,
-      active_profiles: (env['PLUGIN_ACTIVE_PROFILES'] || '').split(',').filter(ele => !!ele),
-    }
+      local_repository: `${env.PWD}/repo`,
+    },
+    JSON.parse(env[`PLUGIN_SETTINGS`] || '{}')
   );
 }
 
