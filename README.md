@@ -20,7 +20,6 @@ pipeline:
 
   build-settings:
     image: knives/drone-maven-setting
-    secrets: [ user_name, user_pass ]
     settings:
       servers:
         - id: private-nexus-releases
@@ -38,6 +37,7 @@ pipeline:
 
   publish:
     image: maven
+    secrets: [ user_name, user_pass ]
     commands:
       - mvn deploy -s settings.xml
     when:
