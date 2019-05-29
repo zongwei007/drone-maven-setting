@@ -28,15 +28,11 @@ steps:
     settings:
       servers:
         - id: private-nexus-releases
-          username:
-            from_secret: user_name
-          password:
-            from_secret: user_pass
+          username: $${env.USER_NAME}
+          password: $${env.USER_PASS}
         - id: private-nexus-snapshots
-          username:
-            from_secret: user_name
-          password:
-            from_secret: user_pass
+          username: $${env.USER_NAME}
+          password: $${env.USER_PASS}
       profiles:
         - id: drone
           properties:
@@ -46,6 +42,11 @@ steps:
 
   - name: publish
     image: maven
+    environment:
+      USER_NAME:
+        from_secret: user_name
+      USER_PASS:
+        from_secret: user_pass
     commands:
       - mvn deploy -s settings.xml
     when:
