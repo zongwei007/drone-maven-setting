@@ -9,25 +9,34 @@
 ## 配置样例
 
 ```yml
-pipeline:
-  restore-cache:
-    image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - ./repo
-    volumes:
-      - /tmp/maven:/cache
+kind: pipeline
+name: default
 
-  build-settings:
+steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache
+        path: /tmp/maven
+    settings:
+      restore: true
+      mount:
+        - ./repo
+
+  - name: build-settings
     image: knives/drone-maven-setting
     settings:
       servers:
         - id: private-nexus-releases
-          username: $${env.USER_NAME}
-          password: $${env.USER_PASS}
+          username:
+            from_secret: user_name
+          password:
+            from_secret: user_pass
         - id: private-nexus-snapshots
-          username: $${env.USER_NAME}
-          password: $${env.USER_PASS}
+          username:
+            from_secret: user_name
+          password:
+            from_secret: user_pass
       profiles:
         - id: drone
           properties:
@@ -35,24 +44,26 @@ pipeline:
       active_profiles:
         - drone
 
-  publish:
+  - name: publish
     image: maven
-    secrets: [ user_name, user_pass ]
     commands:
       - mvn deploy -s settings.xml
     when:
       event: tag
 
-  rebuild-cache:
+  - name: rebuild-cache
     image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - ./repo
     volumes:
-      - /tmp/maven:/cache
-
+      - name: cache
+        path: /tmp/maven
+    settings:
+      rebuild: true
+      mount:
+        - ./repo
+    
 services:
-  redis:
+  - name: redis
     image: redis
-
+    ports:
+      - 6379
 ```
