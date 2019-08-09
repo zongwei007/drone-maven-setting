@@ -17,7 +17,7 @@ steps:
     image: drillster/drone-volume-cache
     volumes:
       - name: cache
-        path: /tmp/maven
+        path: /cache
     settings:
       restore: true
       mount:
@@ -56,7 +56,7 @@ steps:
     image: drillster/drone-volume-cache
     volumes:
       - name: cache
-        path: /tmp/maven
+        path: /cache
     settings:
       rebuild: true
       mount:
@@ -67,4 +67,9 @@ services:
     image: redis
     ports:
       - 6379
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp
 ```
