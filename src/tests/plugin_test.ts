@@ -2,7 +2,7 @@ import { assertEquals, assertStrictEquals } from 'https://deno.land/std@0.79.0/t
 
 import { generateElement, generateSetting, readConfig } from '../plugin.ts';
 import { xml } from '../util.ts';
-import { TEST_CONFIG_FULL, TEST_CONFIG_EMPTY } from './config-example.ts';
+import { TEST_CONFIG_FULL, TEST_CONFIG_EMPTY } from './config_example.ts';
 
 Deno.test('generate element', () => {
   const obj = {

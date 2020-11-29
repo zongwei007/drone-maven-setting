@@ -2,7 +2,7 @@
   "name": "drone-maven-setting",
   "version": "1.0.0",
   "description": "drone maven setting plugin",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "deno test",
     "prettier": "prettier --write src/**"
