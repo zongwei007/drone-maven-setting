@@ -1,4 +1,8 @@
-const TYPE_MAPPING = {
+interface ARRAY_TYPE_MAPPING {
+  [key: string]: string;
+}
+
+export const TYPE_MAPPING: ARRAY_TYPE_MAPPING = {
   'settings#plugin_groups': 'plugin_group',
   'settings#proxies': 'proxy',
   'settings#servers': 'server',
@@ -7,8 +11,4 @@ const TYPE_MAPPING = {
   'settings#active_profiles': 'active_profile',
   'profile#repositories': 'repository',
   'profile#plugin_repositories': 'plugin_repositorie',
-};
-
-module.exports = {
-  TYPE_MAPPING,
 };

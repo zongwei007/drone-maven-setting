@@ -1,36 +1,34 @@
-const test = require('tape');
+import { assertEquals, assertStrictEquals } from 'https://deno.land/std@0.79.0/testing/asserts.ts';
 
-const { generateElement, generateSetting } = require('../src/plugin');
-const { xml } = require('../src/util');
-const { TEST_CONFIG_FULL } = require('./config-example');
+import { generateElement, generateSetting, readConfig } from '../plugin.ts';
+import { xml } from '../util.ts';
+import { TEST_CONFIG_FULL, TEST_CONFIG_EMPTY } from './config-example.ts';
 
-test('generate element', function(t) {
+Deno.test('generate element', () => {
   const obj = {
     id: 'server_id',
     username: 'server_user',
     password: 'server_pwd',
   };
 
-  t.equal(
-    generateElement('ele')(obj),
+  assertStrictEquals(
+    generateElement('ele', obj),
     '<ele><id>server_id</id><username>server_user</username><password>server_pwd</password></ele>'
   );
-
-  t.end();
 });
 
-test('generate elements with object or array', function(t) {
+Deno.test('generate elements with object or array', () => {
   const obj = {
     id: 'name',
     properties: {
       bar: 1,
     },
     repositories: [{ id: 1 }, { id: 2 }, { id: 3 }],
-    plugin_repositories: []
+    plugin_repositories: [],
   };
 
-  t.equal(
-    generateElement('profile')(obj),
+  assertStrictEquals(
+    generateElement('profile', obj),
     [
       '<profile><id>name</id>',
       '<properties><bar>1</bar></properties>',
@@ -41,12 +39,10 @@ test('generate elements with object or array', function(t) {
       '</profile>',
     ].join('')
   );
-
-  t.end();
 });
 
-test('generate setting', function(t) {
-  t.equal(
+Deno.test('generate setting', () => {
+  assertStrictEquals(
     generateSetting(TEST_CONFIG_FULL),
     xml`
       <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
@@ -79,6 +75,26 @@ test('generate setting', function(t) {
         </activeProfiles>
       </settings>`
   );
+});
 
-  t.end();
+Deno.test('readConfig test', () => {
+  assertEquals(
+    readConfig({
+      PWD: '/root',
+      PLUGIN_MIRRORS: '[{"id":"private","name":"mirror","mirror_of":"central","url":"url"}]',
+      PLUGIN_SERVERS: '[{"id":"server_id","username":"server_user","password":"server_pwd"}]',
+      PLUGIN_PROFILES: '[{"id":"profile_id","properties":{"foo":"bar"}}]',
+      PLUGIN_ACTIVE_PROFILES: '["profile_id"]',
+    }),
+    TEST_CONFIG_FULL
+  );
+});
+
+Deno.test('read empty test', () => {
+  assertEquals(
+    readConfig({
+      PWD: '/root',
+    }),
+    TEST_CONFIG_EMPTY
+  );
 });
