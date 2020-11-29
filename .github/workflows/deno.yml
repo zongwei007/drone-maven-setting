@@ -10,8 +10,8 @@ jobs:
 
     strategy:
       matrix:
-        deno: [v1.x]
-        os: [ubuntu-latest]
+        deno: [v1.5.4]
+        os: [ubuntu-18.04]
 
     steps:
       - name: Setup repo

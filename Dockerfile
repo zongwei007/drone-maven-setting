@@ -1,7 +1,5 @@
-FROM mhart/alpine-node:8
+FROM hayd/alpine-deno:1.5.4
 
-WORKDIR /plugin
+RUN deno install --allow-env --allow-write --name=drone-maven-setting "https://raw.githubusercontent.com/zongwei007/drone-maven-setting/master/src/main.ts"
 
-COPY ./src /plugin
-
-ENTRYPOINT node /plugin/index.js
+ENTRYPOINT drone-maven-setting
