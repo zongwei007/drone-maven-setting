@@ -23,7 +23,7 @@ export const TEST_CONFIG_FULL = {
       },
     },
   ],
-  active_profiles: ['profile_id'],
+  active_profiles: 'profile_id',
 };
 
 export const TEST_CONFIG_EMPTY = {

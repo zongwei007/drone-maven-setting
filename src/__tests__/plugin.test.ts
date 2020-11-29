@@ -84,9 +84,10 @@ Deno.test('readConfig test', () => {
       PLUGIN_MIRRORS: '[{"id":"private","name":"mirror","mirror_of":"central","url":"url"}]',
       PLUGIN_SERVERS: '[{"id":"server_id","username":"server_user","password":"server_pwd"}]',
       PLUGIN_PROFILES: '[{"id":"profile_id","properties":{"foo":"bar"}}]',
-      PLUGIN_ACTIVE_PROFILES: '["profile_id"]',
+      PLUGIN_ACTIVE_PROFILES: 'profile_id',
+      PLUGIN_FAKE_ARRAY: 'foo,bar',
     }),
-    TEST_CONFIG_FULL
+    { ...TEST_CONFIG_FULL, fake_array: ['foo', 'bar'] }
   );
 });
 

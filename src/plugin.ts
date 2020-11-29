@@ -1,5 +1,5 @@
 import { xml, snakeToCamel, isObject } from './util.ts';
-import { TYPE_MAPPING } from './definition.ts';
+import { isArrayType, getArrayType } from './definition.ts';
 
 type ATTRIBUTES = {
   [key: string]: any;
@@ -18,8 +18,8 @@ export function generateElement(type: string, element: any, attrs: ATTRIBUTES = 
 
                 if (isObject(val)) {
                   return generateElement(key, val);
-                } else if (Array.isArray(val)) {
-                  return generateCollection(type, key)(val);
+                } else if (Array.isArray(val) || isArrayType(type, key)) {
+                  return generateCollection(type, key)(Array.isArray(val) ? val : [val]);
                 } else {
                   return `<${tagName}>${element[key]}</${tagName}>`;
                 }
@@ -41,7 +41,7 @@ function generateAttribute(attrs: ATTRIBUTES) {
 
 function generateCollection(parentName: string, fieldName: string): (elements: Array<any>) => string {
   const tagName = snakeToCamel(fieldName);
-  const typeName = TYPE_MAPPING[`${parentName}#${fieldName}`];
+  const typeName = getArrayType(parentName, fieldName);
 
   if (!typeName) {
     throw new Error(`Can not found type name of location: ${parentName}#${fieldName}`);
@@ -76,7 +76,7 @@ export function readConfig(env: { [key: string]: string }) {
           if (configValue.startsWith('[') || configValue.startsWith('{')) {
             memo[configKey] = JSON.parse(configValue);
           } else {
-            memo[configKey] = configValue.split(',');
+            memo[configKey] = (values => (values.length === 1 ? values[0] : values))(configValue.split(','));
           }
         }
 

@@ -1,8 +1,8 @@
-interface ARRAY_TYPE_MAPPING {
+interface MAPPINGS {
   [key: string]: string;
 }
 
-export const TYPE_MAPPING: ARRAY_TYPE_MAPPING = {
+const ARRAY_TYPE_MAPPING: MAPPINGS = {
   'settings#plugin_groups': 'plugin_group',
   'settings#proxies': 'proxy',
   'settings#servers': 'server',
@@ -12,3 +12,11 @@ export const TYPE_MAPPING: ARRAY_TYPE_MAPPING = {
   'profile#repositories': 'repository',
   'profile#plugin_repositories': 'plugin_repositorie',
 };
+
+export function isArrayType(parent: string, type: string) {
+  return !!getArrayType(parent, type);
+}
+
+export function getArrayType(parent: string, type: string) {
+  return ARRAY_TYPE_MAPPING[`${parent}#${type}`];
+}
