@@ -2,9 +2,9 @@
   "name": "drone-maven-setting",
   "version": "1.0.0",
   "description": "drone maven setting plugin",
-  "main": "main.js",
+  "main": "src/main.ts",
   "scripts": {
-    "test": "deno test",
+    "test": "deno test -A",
     "prettier": "prettier --write src/**"
   },
   "repository": {
@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/zongwei007/drone-maven-setting#readme",
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^2.2.1"
   }
 }

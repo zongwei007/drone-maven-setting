@@ -1,4 +1,6 @@
-# drone-maven-setting [![Build Status](https://travis-ci.org/zongwei007/drone-maven-setting.svg?branch=master)](https://travis-ci.org/zongwei007/drone-maven-setting)
+[![Build Status](https://github.com/zongwei007/drone-maven-setting/workflows/Build/badge.svg)](https://github.com/zongwei007/drone-maven-setting/actions?query=workflow%3ABuild)
+
+# drone-maven-setting
 
 用于生成 Maven 配置文件 `settings.xml` 的 Drone 插件。功能基本与  [drone-mvn-auth](https://github.com/robertstettner/drone-mvn-auth) 相似，区别在 Maven 的本地缓存路径和支持更广泛的 maven 配置属性。
 
